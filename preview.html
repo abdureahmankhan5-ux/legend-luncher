@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gaming Legend 333 Client</title>
+<style>
+body {
+  background: #101528;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+h1 { color: #42c8ff; }
+button {
+  background: #245bdb;
+  color: white;
+  border: 0;
+  padding: 12px;
+  margin: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#menu {
+  background: #202c48;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 450px;
+  border-radius: 15px;
+}
+#keys {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+.key {
+  display: inline-block;
+  padding: 12px;
+  background: #245bdb;
+  margin: 3px;
+  border-radius: 5px;
+}
+#cps {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>GAMING LEGEND 333</h1>
+<h3>Eaglercraft 26.3 Client</h3>
+
+<div id="menu">
+<h2>Client Mod Menu</h2>
+
+<button onclick="upload.click()">Upload Compatible Mod</button>
+<input id="upload" type="file"
+accept=".glmod.json" hidden>
+
+<p id="status">No mods uploaded</p>
+
+<hr>
+
+<h3>Client Settings</h3>
+
+<label>FPS Preference</label>
+<select>
+<option>Performance</option>
+<option>Balanced</option>
+<option>Quality</option>
+</select>
+
+<p>
+<button onclick="toggleKeys()">Keystrokes</button>
+<button onclick="toggleCPS()">CPS Counter</button>
+<button onclick="toggleZoom()">Zoom</button>
+</p>
+
+<p id="zoom">Zoom: OFF</p>
+<p id="mods">Installed Mods: 0</p>
+</div>
+
+<div id="keys">
+<div><span class="key" id="W">W</span></div>
+<div>
+<span class="key" id="A">A</span>
+<span class="key" id="S">S</span>
+<span class="key" id="D">D</span>
+</div>
+</div>
+
+<div id="cps">CPS: <span id="count">0</span></div>
+
+<script>
+const upload = document.getElementById("upload");
+let installed = 0;
+let zoomOn = false;
+
+upload.onchange = async function() {
+  const file = upload.files[0];
+  if (!file) return;
+
+  if (!file.name.endsWith(".glmod.json")) {
+    status.textContent = "Unsupported mod format";
+    return;
+  }
+
+  try {
+    const data = JSON.parse(await file.text());
+
+    if (data.apiVersion !== "gl333-mod-v1" ||
+        !data.id || !data.name) {
+      throw new Error("Invalid mod package");
+    }
+
+    installed++;
+    document.getElementById("mods").textContent =
+      "Installed Mods: " + installed;
+    document.getElementById("status").textContent =
+      "Added: " + data.name + " (metadata only)";
+  } catch {
+    document.getElementById("status").textContent =
+      "Invalid compatible mod package";
+  }
+};
+
+document.addEventListener("keydown", e => {
+  const key = e.key.toUpperCase();
+  if (["W","A","S","D"].includes(key)) {
+    document.getElementById(key).style.background = "#12b9d9";
+  }
+});
+
+document.addEventListener("keyup", e => {
+  const key = e.key.toUpperCase();
+  if (["W","A","S","D"].includes(key)) {
+    document.getElementById(key).style.background = "#245bdb";
+  }
+});
+
+let clicks = [];
+document.addEventListener("mousedown", () => {
+  const now = Date.now();
+  clicks.push(now);
+  clicks = clicks.filter(t => now-t < 1000);
+  document.getElementById("count").textContent = clicks.length;
+});
+
+function toggleKeys() {
+  const el = document.getElementById("keys");
+  el.hidden = !el.hidden;
+}
+
+function toggleCPS() {
+  const el = document.getElementById("cps");
+  el.hidden = !el.hidden;
+}
+
+function toggleZoom() {
+  zoomOn = !zoomOn;
+  document.getElementById("zoom").textContent =
+    "Zoom: " + (zoomOn ? "ON" : "OFF");
+  document.body.style.zoom = zoomOn ? "1.3" : "1";
+}
+</script>
+
+</body>
+</html>
