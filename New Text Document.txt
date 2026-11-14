@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Legend 333</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #101827;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+header {
+  padding: 25px;
+  background: #080e19;
+  border-bottom: 2px solid #22dd77;
+}
+h1 { color: #22dd77; }
+main { padding: 35px 15px; }
+button {
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  margin: 15px auto;
+  padding: 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #19b866;
+  color: white;
+  font-size: 19px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: #128b4c; }
+#game {
+  display: none;
+  width: 100%;
+  height: 75vh;
+  margin-top: 20px;
+  background: black;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+footer {
+  color: #9ca3af;
+  padding: 25px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>GAMING LEGEND 333</h1>
+<p>EAGLERCRAFT 26.3 CLIENT</p>
+</header>
+
+<main>
+<h2>Welcome, Gamer!</h2>
+<p>Your Minecraft Browser Launcher</p>
+
+<button onclick="openGame()">▶ PLAY GAME</button>
+<button onclick="alert('Settings coming soon!')">
+SETTINGS
+</button>
+<button onclick="alert('Mod menu coming soon!')">
+MOD MENU
+</button>
+
+<div id="game">
+<iframe
+src="https://eaglercraft.com/"
+allowfullscreen>
+</iframe>
+</div>
+</main>
+
+<footer>
+Gaming Legend 333 © 2026
+</footer>
+
+<script>
+function openGame() {
+  document.getElementById("game").style.display = "block";
+}
+</script>
+
+</body>
+</html>
