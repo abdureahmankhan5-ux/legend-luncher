@@ -1,0 +1,52 @@
+
+<div class="mods-manager">
+  <h2>🎮 Gaming Legend 333 — Mods Manager</h2>
+
+  <input type="file" id="modFile" accept=".js,.json,.zip" multiple>
+  <button onclick="addMods()">+ Add Mods</button>
+
+  <ul id="modList">
+    <li>No mods added yet</li>
+  </ul>
+</div>
+
+<style>
+.mods-manager {
+  background: #151525;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: Arial;
+}
+.mods-manager button {
+  background: #7c3cff;
+  color: white;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#modList { padding-left: 20px; }
+</style>
+
+<script>
+function addMods() {
+  const files = document.getElementById("modFile").files;
+  const list = document.getElementById("modList");
+
+  if (!files.length) {
+    alert("Please select a mod file!");
+    return;
+  }
+
+  if (list.innerText === "No mods added yet") {
+    list.innerHTML = "";
+  }
+
+  for (const file of files) {
+    const item = document.createElement("li");
+    item.textContent = file.name + " — Added";
+    list.appendChild(item);
+  }
+}
+</script>
